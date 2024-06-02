@@ -1,18 +1,32 @@
 		/*
-				2. Жучки: що неправильно у наступному програмному коді ?	
+				2. Р–СѓС‡РєРё: С‰Рѕ РЅРµРїСЂР°РІРёР»СЊРЅРѕ Сѓ РЅР°СЃС‚СѓРїРЅРѕРјСѓ РїСЂРѕРіСЂР°РјРЅРѕРјСѓ РєРѕРґС– ?	
 		*/
 
-class Shape {};//базовий
+#include <iostream>
 
-class Rectangle : public Shape {};//наслідник
+class Shape {
+public:
+    virtual void draw() const 
+{
+        std::cout << "Drawing Shape" << std::endl;
+    }
+    virtual ~Shape() {}  // Р’РёСЂС‚СѓР°Р»СЊРЅС‹Р№ РґРµСЃС‚СЂСѓРєС‚РѕСЂ РґР»СЏ РєРѕСЂСЂРµРєС‚РЅРѕРіРѕ СѓРґР°Р»РµРЅРёСЏ РѕР±СЉРµРєС‚РѕРІ РїСЂРѕРёР·РІРѕРґРЅС‹С… РєР»Р°СЃСЃРѕРІ
+};
 
-void SomeFunction(Shape& shape) {}//добавив аперсант (&)
+class Rectangle : public Shape {
+public:
+    void draw() const override {
+        std::cout << "Drawing Rectangle" << std::endl;
+    }
+};
+
+void SomeFunction(Shape &shape) {
+    shape.draw();  // Р’С‹Р·РѕРІ РІРёСЂС‚СѓР°Р»СЊРЅРѕРіРѕ РјРµС‚РѕРґР°
+}
 
 int main() {
-    Shape* pRect = new Rectangle; // тут я створюю об’єкт класу Rectangle та ініціалізую вказівник pRect цим об’єктом.Все правильно 
-    SomeFunction(*pRect); // передача об'єкта за посиланням
-
-   
-    delete pRect; // Видалення створеного об'єкта для уникнення витоку пам'яті
+    Shape *pRect = new Rectangle;
+    SomeFunction(*pRect);  // РџРµСЂРµРґР°С‡Р° РѕР±СЉРµРєС‚Р° РїРѕ СЃСЃС‹Р»РєРµ РєР»Р°СЃСЃР° Rectangle
+    delete pRect;  // РћС‡РёСЃС‚РєР° РїР°РјСЏС‚Рё
     return 0;
 }
